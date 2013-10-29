@@ -1,0 +1,75 @@
+WHAT HAVE WE ACCOMPLISHED?
+---------------------------
+
+
+1. We have decided to study how 'buffer overflow' attacks are done and what measures can be taken to defend against them.
+
+2. To understand the inner workings of a buffer overflow attack, we studied how computers store memory. Every process has it's own memory space consisting of a stack space and heap space. We observe how computers use the stack space to store the variables and the return address.
+
+3. We observe how functions store variables and return address in the stack. The following schematic diagram shows how it is done so
+
+													-----------------------
+													Local Variables
+													-----------------------
+													Local Variables
+													-----------------------
+													argument of the function
+													-----------------------
+													return address
+													-----------------------
+													stack before function is called
+													-----------------------
+
+4. We now give an input to the function which is quite long and overwrites the return address present in the stack. If we can architect the input so that the stuff that is written into the return address is the address of another function which we intend to call, we have accomplished a buffer overflow attack.
+
+5. For now, we have written several C programs to actually observe what values are stored in the stack when a function is called so that we can better understand how the input must be framed. We have used 'printf("%p")' to print the values present in the stack. A typical stack in a 64-bit machine looks like:
+
+												My stack looks like:
+													0x7fff5e03b308
+													0x1
+													0x7fff5e03bc28
+													0x7fff8d037520
+													0x10
+													0x7fff5e03bae0
+													0x0
+													0xa69dee418b1bb6a7
+													0x0
+													0x7fff5e03bd20
+													0xa69dee418b1bb6a7
+													0x7fff5e03bc00
+													0x101bc4df1    <--- return address
+													0x1d00000000
+
+A typical stack in a 32-bit machine looks like:
+
+												My stack looks like:
+													0xb75d65e8
+													0xb7612ac1
+													0xb7774ff4
+													(nil)
+													(nil)
+													0xbfac4cb8
+													0xbfac53de
+													0xb7775a20
+													0x804871c    <----- return address
+													0xbfac4ca4
+													0x8869ce00
+													0x2
+													0xb77b3918
+													0xbfac4cb8
+
+
+WHAT YOU PLAN TO DO FURTHER?
+----------------------------
+
+1. We plan to observe how the stack values change when we change the input value given to the function as an argument. This change can be architectured so that the return address is modified and is made to point to a malicious function.
+
+2. There seems to be a difference in how the stack is stored in 64-bit and 32-bit machines. We plan to study the differences and examine how buffer overflow attacks can be done on both.
+
+3. After accomplishing the buffer overflow attacks, we will search for different measures that can be taken to prevent such attacks and how they can be identified.													
+
+TEAM MEMBERS
+Anirudh V
+Harsha Vardhan Kode
+Nishant Nori
+Tarun Raj N													
